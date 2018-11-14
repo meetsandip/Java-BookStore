@@ -91,6 +91,27 @@ public class BookDAO {
         return false;
     }
     
+    public boolean updateBook(Book book)  {
+        String sql = "update book set title=?, author=?, price=? where id=?";
+
+        try {
+	        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+	        statement.setString(1, book.getTitle());
+	        statement.setString(2, book.getAuthor());
+	        statement.setFloat(3, book.getPrice());
+	        statement.setInt(4, book.getId());
+
+	        boolean rowUpdated = statement.executeUpdate() > 0;
+	        statement.close();
+	        return rowUpdated;
+        } catch (SQLException e) {
+        		e.printStackTrace();
+        }
+
+        return false;
+    }
+    
+    
     public boolean deleteBook(Book book)  {
         String sql = "delete from book where id=?";
 

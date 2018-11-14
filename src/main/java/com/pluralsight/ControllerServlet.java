@@ -63,6 +63,10 @@ public class ControllerServlet extends HttpServlet {
 				case "/edit":
 					showEditForm(request, response);
 					
+		  break;
+				case "/update":
+					updateBook(request, response);
+					
           break;
 				case "/delete":
 					deleteBook(request, response);
@@ -121,9 +125,23 @@ public class ControllerServlet extends HttpServlet {
 		String author = request.getParameter("bookauthor");
 		String priceString = request.getParameter("bookprice");
 
-		Book newBook = new Book(title, author, Float.parseFloat(priceString));
+		Book newBook = new Book( title, author, Float.parseFloat(priceString));
 
 		bookDAO.insertBook(newBook);
+		//response.sendRedirect("list");
+	}
+	
+	private void updateBook(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ClassNotFoundException, SQLException {
+		
+		String id = request.getParameter("id");
+		String title = request.getParameter("booktitle");
+		String author = request.getParameter("bookauthor");
+		String priceString = request.getParameter("bookprice");
+
+		Book uBook = new Book(Integer.parseInt(id),title, author, Float.parseFloat(priceString));
+
+		bookDAO.updateBook(uBook);
 		response.sendRedirect("list");
 	}
 	

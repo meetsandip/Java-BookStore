@@ -22,14 +22,14 @@ Update Book Form
 </c:if>
 
 <c:if test="${book == null}">
-<form name="book_form" method="post" action="update">
+<form name="book_form" method="post" action="Insert">
 <h2>
 New Book Form
 </h2>
 </c:if>
 
   
-   
+<input type="hidden" name="id"  value = "<c:out value='${book.getId() }' />"/></p>
 	  <p><label>Title:</label>
     <input type="text" name="booktitle"  value = "<c:out value='${book.getTitle() }' />"/></p>
 	  <p><label>Author:</label>
@@ -37,12 +37,9 @@ New Book Form
     <p><label>Price:</label>
     <input type="text" name="bookprice" value = "<c:out value='${book.getPrice() }' />" /></p>
     
-    <c:if test="${book == null}">
-    <p><input type="submit" value="Submit"></p>
-    </c:if>
-    <c:if test="${book != null}">
+  
     <p><input type="submit" value="Update"></p>
-    </c:if>
+   
 	  
 	</form>
 	</div>
