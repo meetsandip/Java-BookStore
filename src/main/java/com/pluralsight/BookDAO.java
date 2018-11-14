@@ -45,7 +45,7 @@ public class BookDAO {
     }
 
     public ArrayList<Book> listAllBooks() {
-      ArrayList<Book> listBook = new ArrayList<>();
+      ArrayList<Book> listBook = new ArrayList<Book>();
 
       String sql = "SELECT * FROM book";
 
@@ -80,6 +80,24 @@ public class BookDAO {
 	        statement.setString(1, book.getTitle());
 	        statement.setString(2, book.getAuthor());
 	        statement.setFloat(3, book.getPrice());
+
+	        boolean rowInserted = statement.executeUpdate() > 0;
+	        statement.close();
+	        return rowInserted;
+        } catch (SQLException e) {
+        		e.printStackTrace();
+        }
+
+        return false;
+    }
+    
+    public boolean deleteBook(Book book)  {
+        String sql = "delete from book where id=?";
+
+        try {
+	        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+	        statement.setInt(1, book.getId());
+	      
 
 	        boolean rowInserted = statement.executeUpdate() > 0;
 	        statement.close();
